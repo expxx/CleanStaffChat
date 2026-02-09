@@ -1,0 +1,10 @@
+name: CleanStaffChat
+version: 1.17.4
+main: it.frafol.cleanstaffchat.bungee.CleanStaffChat
+author: frafol
+softDepends:
+  - RedisBungee
+  - LuckPerms
+  - UltraPermissions
+  - PremiumVanish
+  - Spicord

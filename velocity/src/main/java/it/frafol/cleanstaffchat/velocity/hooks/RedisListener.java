@@ -6,11 +6,14 @@ import com.velocitypowered.api.event.Subscribe;
 import it.frafol.cleanstaffchat.velocity.CleanStaffChat;
 import it.frafol.cleanstaffchat.velocity.enums.VelocityConfig;
 import it.frafol.cleanstaffchat.velocity.objects.PlayerCache;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 public class RedisListener {
 
     public final CleanStaffChat PLUGIN;
+    private final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     public RedisListener(CleanStaffChat plugin) {
         this.PLUGIN = plugin;
@@ -20,63 +23,58 @@ public class RedisListener {
     public void onRedisBungeeMessage(PubSubMessageEvent event) {
 
         if (event.getChannel().equals("CleanStaffChat-StaffMessage-RedisBungee")) {
-
-            final String player_message = event.getMessage();
+            Component toSend = miniMessage.deserialize(event.getMessage());
 
             CleanStaffChat.getInstance().getServer().getAllPlayers().stream().filter
                             (players -> players.hasPermission(VelocityConfig.STAFFCHAT_USE_PERMISSION.get(String.class))
                                     && !(PlayerCache.getToggled().contains(players.getUniqueId())))
-                    .forEach(players -> players.sendMessage(LegacyComponentSerializer.legacy('§').deserialize(player_message)));
+                    .forEach(players -> players.sendMessage(toSend));
 
-            PLUGIN.getServer().getConsoleCommandSource().sendMessage(LegacyComponentSerializer.legacy('§').deserialize(player_message));
+            PLUGIN.getServer().getConsoleCommandSource().sendMessage(toSend);
 
         }
 
         if (event.getChannel().equals("CleanStaffChat-DonorMessage-RedisBungee")) {
-
-            final String player_message = event.getMessage();
+            Component toSend = miniMessage.deserialize(event.getMessage());
 
             CleanStaffChat.getInstance().getServer().getAllPlayers().stream().filter
                             (players -> players.hasPermission(VelocityConfig.DONORCHAT_USE_PERMISSION.get(String.class))
                                     && !(PlayerCache.getToggled().contains(players.getUniqueId())))
-                    .forEach(players -> players.sendMessage(LegacyComponentSerializer.legacy('§').deserialize(player_message)));
+                    .forEach(players -> players.sendMessage(toSend));
 
-            PLUGIN.getServer().getConsoleCommandSource().sendMessage(LegacyComponentSerializer.legacy('§').deserialize(player_message));
+            PLUGIN.getServer().getConsoleCommandSource().sendMessage(toSend);
 
         }
 
         if (event.getChannel().equals("CleanStaffChat-AdminMessage-RedisBungee")) {
-
-            final String player_message = event.getMessage();
+            Component toSend = miniMessage.deserialize(event.getMessage());
 
             CleanStaffChat.getInstance().getServer().getAllPlayers().stream().filter
                             (players -> players.hasPermission(VelocityConfig.ADMINCHAT_USE_PERMISSION.get(String.class))
                                     && !(PlayerCache.getToggled().contains(players.getUniqueId())))
-                    .forEach(players -> players.sendMessage(LegacyComponentSerializer.legacy('§').deserialize(player_message)));
+                    .forEach(players -> players.sendMessage(toSend));
 
-            PLUGIN.getServer().getConsoleCommandSource().sendMessage(LegacyComponentSerializer.legacy('§').deserialize(player_message));
+            PLUGIN.getServer().getConsoleCommandSource().sendMessage(toSend);
 
         }
 
         if (event.getChannel().equals("CleanStaffChat-StaffOtherMessage-RedisBungee")) {
-
-            final String player_message = event.getMessage();
+            Component toSend = miniMessage.deserialize(event.getMessage());
 
             CleanStaffChat.getInstance().getServer().getAllPlayers().stream().filter
                             (players -> players.hasPermission(VelocityConfig.STAFFCHAT_USE_PERMISSION.get(String.class))
                                     && !(PlayerCache.getToggled().contains(players.getUniqueId())))
-                    .forEach(players -> players.sendMessage(LegacyComponentSerializer.legacy('§').deserialize(player_message)));
+                    .forEach(players -> players.sendMessage(toSend));
 
         }
 
         if (event.getChannel().equals("CleanStaffChat-StaffAFKMessage-RedisBungee")) {
-
-            final String player_message = event.getMessage();
+            Component toSend = miniMessage.deserialize(event.getMessage());
 
             CleanStaffChat.getInstance().getServer().getAllPlayers().stream().filter
                             (players -> players.hasPermission(VelocityConfig.STAFFCHAT_AFK_PERMISSION.get(String.class))
                                     && !(PlayerCache.getToggled().contains(players.getUniqueId())))
-                    .forEach(players -> players.sendMessage(LegacyComponentSerializer.legacy('§').deserialize(player_message)));
+                    .forEach(players -> players.sendMessage(toSend));
 
         }
 

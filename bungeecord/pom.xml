@@ -92,7 +92,7 @@
         <dependency>
             <groupId>com.github.proxiodev.redisbungee</groupId>
             <artifactId>RedisBungee-Bungee</artifactId>
-            <version>0.12.6</version>
+            <version>0.13.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

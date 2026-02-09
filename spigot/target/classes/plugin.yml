@@ -1,0 +1,16 @@
+name: CleanStaffChat
+version: '1.17.4'
+main: it.frafol.cleanstaffchat.bukkit.CleanStaffChat
+authors: [ frafol ]
+description: Best StaffChat plugin.
+api-version: 1.13
+folia-supported: true
+softdepend:
+  - PlaceholderAPI
+  - MiniPlaceholders
+  - LuckPerms
+  - UltraPermissions
+  - PremiumVanish
+  - LiteBans
+  - SuperVanish
+  - Spicord
