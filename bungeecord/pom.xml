@@ -7,7 +7,7 @@
     <parent>
         <groupId>it.frafol</groupId>
         <artifactId>cleanstaffchat</artifactId>
-        <version>1.17.4</version>
+        <version>1.17.6</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -71,6 +71,10 @@
             <url>https://mvn-repo.arim.space/affero-gpl3/</url>
         </repository>
         <repository>
+            <id>william278-repo</id>
+            <url>https://repo.william278.net/releases/</url>
+        </repository>
+        <repository>
             <id>maven_central</id>
             <name>Maven Central</name>
             <url>https://repo.maven.apache.org/maven2/</url>
@@ -108,6 +112,12 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>net.william278</groupId>
+            <artifactId>papiproxybridge</artifactId>
+            <version>1.8.4</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>me.TechsCode</groupId>
             <artifactId>UltraPermissionsAPI</artifactId>
             <version>5.5.2</version>
@@ -129,7 +139,7 @@
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
-            <version>6.0.0-rc.4</version>
+            <version>6.3.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -148,6 +158,30 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.32</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-api</artifactId>
+            <version>4.26.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-text-minimessage</artifactId>
+            <version>4.26.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-text-serializer-legacy</artifactId>
+            <version>4.26.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-platform-bungeecord</artifactId>
+            <version>4.3.4</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

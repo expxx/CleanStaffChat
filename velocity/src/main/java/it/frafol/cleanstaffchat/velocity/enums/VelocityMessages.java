@@ -4,12 +4,8 @@ import com.velocitypowered.api.command.CommandSource;
 import it.frafol.cleanstaffchat.velocity.CleanStaffChat;
 import it.frafol.cleanstaffchat.velocity.objects.Placeholder;
 import it.frafol.cleanstaffchat.velocity.utils.ChatUtil;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public enum VelocityMessages {
 
@@ -133,65 +129,7 @@ public enum VelocityMessages {
     }
 
     public String color() {
-        String hex = convertHexColors(get(String.class));
-        return hex.replace("&", "§");
-    }
-
-    private String convertHexColors(String message) {
-
-        if (VelocityConfig.MINIMESSAGE.get(Boolean.class)) {
-            MiniMessage miniMessage = MiniMessage.miniMessage();
-            Component component = miniMessage.deserialize(message);
-            message = LegacyComponentSerializer.legacySection().serialize(component);
-        }
-
-        if (!containsHexColor(message)) {
-            return message;
-        }
-
-        Pattern hexPattern = Pattern.compile("(#[A-Fa-f0-9]{6}|<#[A-Fa-f0-9]{6}>|&#[A-Fa-f0-9]{6})");
-        Matcher matcher = hexPattern.matcher(message);
-        StringBuffer buffer = new StringBuffer();
-        while (matcher.find()) {
-            String hexCode = matcher.group();
-            String colorCode = hexCode.substring(1, 7);
-            if (hexCode.startsWith("<#") && hexCode.endsWith(">")) {
-                colorCode = hexCode.substring(2, 8);
-            } else if (hexCode.startsWith("&#")) {
-                colorCode = hexCode.substring(2, 8);
-            }
-            String minecraftColorCode = translateHexToMinecraftColorCode(colorCode);
-            matcher.appendReplacement(buffer, minecraftColorCode);
-        }
-        matcher.appendTail(buffer);
-        return buffer.toString();
-    }
-
-    private String translateHexToMinecraftColorCode(String hex) {
-        char[] chars = hex.toCharArray();
-        return "§x" +
-                '§' + chars[0] +
-                '§' + chars[1] +
-                '§' + chars[2] +
-                '§' + chars[3] +
-                '§' + chars[4] +
-                '§' + chars[5];
-    }
-
-    private boolean containsHexColor(String message) {
-        String[] hexColorPattern;
-        if (VelocityConfig.MINIMESSAGE.get(Boolean.class)) {
-            hexColorPattern = new String[]{"#[a-fA-F0-9]{6}", "&#[a-fA-F0-9]{6}"};
-        } else {
-            hexColorPattern = new String[]{"#[a-fA-F0-9]{6}", "&#[a-fA-F0-9]{6}", "<#[a-fA-F0-9]]{6}>"};
-        }
-
-        for (String pattern : hexColorPattern) {
-            if (Pattern.compile(pattern).matcher(message).find()) {
-                return true;
-            }
-        }
-        return false;
+        return ChatUtil.convertHexColors(get(String.class));
     }
 
     private MiniMessage getMiniMessage() {

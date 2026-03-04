@@ -81,17 +81,16 @@ public class ChatUtil {
                 message.contains("&n") ||
                 message.contains("&o") ||
                 message.contains("&r");
-
     }
 
     public String translateHex(String string) {
         return convertHexColors(string).replace("&", "§");
     }
 
-    private String convertHexColors(String message) {
+    public String convertHexColors(String message) {
 
         if (VelocityConfig.MINIMESSAGE.get(Boolean.class)) {
-            return LegacyComponentSerializer.legacySection().serialize(deserializeMiniMessage(message));
+            return translateMiniMessage(message);
         }
 
         if (!containsHexColor(message)) {
@@ -127,10 +126,17 @@ public class ChatUtil {
                 '§' + chars[5];
     }
 
-    private Component deserializeMiniMessage(String message) {
-        Component legacy = LegacyComponentSerializer.legacySection().deserialize(message);
-        String mmString = MiniMessage.miniMessage().serialize(legacy);
-        return MiniMessage.miniMessage().deserialize(mmString);
+    public String translateMiniMessage(String input) {
+        Component raw = LegacyComponentSerializer.legacyAmpersand()
+                .deserialize(input);
+        String intermediate = MiniMessage.miniMessage()
+                .serialize(raw);
+        intermediate = intermediate.replace("§", "")
+                .replace("&", "");
+        Component parsed = MiniMessage.miniMessage()
+                .deserialize(intermediate);
+        return LegacyComponentSerializer.legacyAmpersand()
+                .serialize(parsed);
     }
 
     private boolean containsHexColor(String message) {
